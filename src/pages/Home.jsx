@@ -50,7 +50,7 @@ function Home() {
           Saving money is hard
         </h1>
         <p className="my-10 mb-20 text-center text-xl">
-          90% people fail to save within 1 months ..
+          90% people fail to save within a month ..
         </p>
         <div className="flex justify-between items-center flex-col xl:flex-row gap-14 xl:gap-0 ">
           <div className=" w-86 lg:w-96 flex justify-center items-center card mt-10">
@@ -176,11 +176,11 @@ function Home() {
         </ul>
       </div>
 
-      <div className="flex relative  items-center text-center justify-center my-20">
+      <div className="flex-col relative sm:flex  items-center text-center justify-center my-20">
         Press<kbd className="kbd kbd-md mx-3 ">F</kbd>
         to pay respects to the Developer.
         <div
-          className="absolute right-1/2 left-1/2 bottom-10 -translate-x-1/2"
+          className="absolute left-1/2 right-1/2 bottom-10 -translate-x-1/2"
           ref={animationRef}
           style={{ width: "300px", height: "300px" }}
         >
