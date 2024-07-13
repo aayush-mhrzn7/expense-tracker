@@ -40,10 +40,10 @@ class AppwriteAuthentication {
 
   async googleOauth() {
     try {
-      this.account.createOAuth2Session(
-        OAuthProvider.Google,
-        "http://localhost:5173/sucess",
-        "http://localhost:5173/failed"
+      return await this.account.createOAuth2Session(
+        "google",
+        "http://localhost:5173",
+        "http://localhost:5173/login"
       );
       const session = await account.getSession("current");
       console.log(session.provider);
@@ -55,7 +55,10 @@ class AppwriteAuthentication {
   }
   async forgotPassword({ email }) {
     try {
-      return await this.account.createRecovery(email, "http://localhost:5173/");
+      return await this.account.createRecovery(
+        email,
+        "http://localhost:5173/reset"
+      );
     } catch (error) {
       console.log("error: ", error);
     }
@@ -89,3 +92,6 @@ class AppwriteAuthentication {
     }
   }
 }
+
+const auth = new AppwriteAuthentication();
+export default auth;

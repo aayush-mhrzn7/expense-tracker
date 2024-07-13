@@ -5,6 +5,8 @@ import Footer from "./components/Footer";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -13,8 +15,10 @@ function App() {
       {/*  <Home /> */}
       {/* <About /> */}
       <Login />
-      <Signup />
+      {/* <Signup /> */}
       {/*   <Footer /> */}
+      {/*  <ForgotPassword /> */}
+      {/* <ResetPassword /> */}
     </div>
   );
 }
