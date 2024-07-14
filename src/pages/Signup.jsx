@@ -28,6 +28,7 @@ function Signup() {
   const googleAuthencation = async () => {
     try {
       const user = await auth.googleOauth();
+      console.log(user);
       console.log("google authentication is a sucess");
       //navigate();
       dispatch(login(user));

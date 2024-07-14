@@ -1,10 +1,41 @@
 import React from "react";
 import auth from "../../appwrite/auth";
+import { Link } from "react-router-dom";
 function Header() {
+  const navItems = [
+    {
+      name: "My Accounts",
+      slug: "/account",
+    },
+    {
+      name: "About us",
+      slug: "/about",
+    },
+  ];
+  const authLinks = [
+    {
+      name: "Login",
+      slug: "/login",
+    },
+    {
+      name: "Signup",
+      slug: "/signup",
+    },
+  ];
+  const subLinks = [
+    {
+      name: "History",
+      children: [
+        { name: "Charts", slug: "/charts" },
+        { name: "Statements", slug: "/statements" },
+      ],
+    },
+  ];
   const logoutSession = async () => {
     await auth.logout();
     console.log("logged out");
   };
+
   return (
     <div className="navbar bg-base-100  font-primary">
       <div className="navbar-start">
@@ -29,45 +60,38 @@ function Header() {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 font-primary text-xl shadow"
           >
-            <li>
-              <a
-                href="#"
-                className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl "
-              >
-                My Accounts
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
-              >
-                About us
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl">
-                History
-              </a>
-              <ul className="p-2">
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
+            {navItems.map((item, i) => (
+              <li key={i}>
+                <Link
+                  to={item.slug}
+                  className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl "
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+            {subLinks.map((links, i) =>
+              links.children.map((item, d) => (
+                <li key={i}>
+                  <Link
+                    to={item.slug}
+                    className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl "
                   >
-                    Charts
-                  </a>
+                    {item.name}
+                  </Link>
                 </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
-                  >
-                    Statements
-                  </a>
-                </li>
-              </ul>
-            </li>
+              ))
+            )}
+            {authLinks.map((item, i) => (
+              <li key={i}>
+                <Link
+                  to={item.slug}
+                  className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl "
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <a
@@ -79,41 +103,56 @@ function Header() {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <a
-              href="#"
-              className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
-            >
-              My Account
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
-            >
-              About Us
-            </a>
-          </li>
+          {navItems?.map((items, i) => (
+            <li key={i}>
+              <Link
+                key={i}
+                className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
+                to={items.slug}
+              >
+                {items.name}
+              </Link>
+            </li>
+          ))}
+
           <li>
             <details>
-              <summary className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl">
-                History
-              </summary>
-              <ul className="p-2">
-                <li>
-                  <a className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl">
-                    Charts
-                  </a>
-                </li>
-                <li>
-                  <a className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl">
-                    Statements
-                  </a>
-                </li>
-              </ul>
+              {subLinks?.map((link, i) => (
+                <>
+                  <summary
+                    key={i}
+                    className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
+                  >
+                    {link.name}
+                  </summary>
+                  <ul className="p-2">
+                    {link.children?.map((child, i) => (
+                      <li key={i}>
+                        <Link
+                          key={i}
+                          className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
+                          to={child.slug}
+                        >
+                          {child.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ))}
             </details>
           </li>
+          {authLinks.map((item, i) => (
+            <li key={i}>
+              <Link
+                key={i}
+                className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
+                to={item.slug}
+              >
+                {item.name}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="navbar-end">

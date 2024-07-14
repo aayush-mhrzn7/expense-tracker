@@ -7,18 +7,13 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
     <div>
       <Header />
-      {/*  <Home /> */}
-      {/* <About /> */}
-      <Login />
-      {/* <Signup /> */}
-      {/*   <Footer /> */}
-      {/*  <ForgotPassword /> */}
-      {/* <ResetPassword /> */}
+      <Outlet />
     </div>
   );
 }

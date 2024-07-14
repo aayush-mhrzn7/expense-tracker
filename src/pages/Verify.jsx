@@ -1,13 +1,16 @@
 import React from "react";
 import auth from "../../appwrite/auth";
 
-async function Verify() {
+function Verify() {
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get("userId");
   const secret = urlParams.get("secret");
   console.log(userId, secret);
-  await auth.updateVerification(userId, secret);
+  async function handleVerification() {
+    await auth.updateVerification(userId, secret);
+  }
+  handleVerification();
   return <></>;
 }
-Verify();
+
 export default Verify;
