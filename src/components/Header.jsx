@@ -1,30 +1,38 @@
 import React from "react";
 import auth from "../../appwrite/auth";
 import { Link } from "react-router-dom";
+import { nanoid } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 function Header() {
+  const status = useSelector((state) => state.auth.status);
   const navItems = [
     {
       name: "My Accounts",
       slug: "/account",
+      active: status,
     },
     {
       name: "About us",
       slug: "/about",
+      active: status,
     },
   ];
   const authLinks = [
     {
       name: "Login",
       slug: "/login",
+      active: !status,
     },
     {
       name: "Signup",
       slug: "/signup",
+      active: !status,
     },
   ];
   const subLinks = [
     {
       name: "History",
+      active: status,
       children: [
         { name: "Charts", slug: "/charts" },
         { name: "Statements", slug: "/statements" },
@@ -60,19 +68,9 @@ function Header() {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 font-primary text-xl shadow"
           >
-            {navItems.map((item, i) => (
-              <li key={i}>
-                <Link
-                  to={item.slug}
-                  className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl "
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
-            {subLinks.map((links, i) =>
-              links.children.map((item, d) => (
-                <li key={i}>
+            {navItems.map((item) =>
+              item.active ? (
+                <li key={nanoid()}>
                   <Link
                     to={item.slug}
                     className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl "
@@ -80,18 +78,34 @@ function Header() {
                     {item.name}
                   </Link>
                 </li>
-              ))
+              ) : null
             )}
-            {authLinks.map((item, i) => (
-              <li key={i}>
-                <Link
-                  to={item.slug}
-                  className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl "
-                >
-                  {item.name}
-                </Link>
-              </li>
-            ))}
+            {subLinks.map((links) =>
+              links.active
+                ? links.children.map((item) => (
+                    <li key={nanoid()}>
+                      <Link
+                        to={item.slug}
+                        className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl "
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))
+                : null
+            )}
+            {authLinks.map((item) =>
+              item.active ? (
+                <li key={nanoid()}>
+                  <Link
+                    to={item.slug}
+                    className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl "
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ) : null
+            )}
           </ul>
         </div>
         <a
@@ -103,33 +117,35 @@ function Header() {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          {navItems?.map((items, i) => (
-            <li key={i}>
-              <Link
-                key={i}
-                className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
-                to={items.slug}
-              >
-                {items.name}
-              </Link>
-            </li>
-          ))}
+          {navItems?.map((items) =>
+            items.active ? (
+              <li key={nanoid()}>
+                <Link
+                  key={nanoid()}
+                  className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
+                  to={items.slug}
+                >
+                  {items.name}
+                </Link>
+              </li>
+            ) : null
+          )}
 
           <li>
-            <details>
-              {subLinks?.map((link, i) => (
-                <>
+            {subLinks?.map((link) =>
+              link.active ? (
+                <details className="" key={nanoid()}>
                   <summary
-                    key={i}
+                    key={nanoid()}
                     className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
                   >
                     {link.name}
                   </summary>
                   <ul className="p-2">
-                    {link.children?.map((child, i) => (
-                      <li key={i}>
+                    {link.children?.map((child) => (
+                      <li key={nanoid()}>
                         <Link
-                          key={i}
+                          key={nanoid()}
                           className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
                           to={child.slug}
                         >
@@ -138,21 +154,23 @@ function Header() {
                       </li>
                     ))}
                   </ul>
-                </>
-              ))}
-            </details>
+                </details>
+              ) : null
+            )}
           </li>
-          {authLinks.map((item, i) => (
-            <li key={i}>
-              <Link
-                key={i}
-                className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
-                to={item.slug}
-              >
-                {item.name}
-              </Link>
-            </li>
-          ))}
+          {authLinks.map((item) =>
+            item.active ? (
+              <li key={nanoid()}>
+                <Link
+                  key={nanoid()}
+                  className="hover:text-white/90 cursor-pointer active:text-white/90 text-xl"
+                  to={item.slug}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ) : null
+          )}
         </ul>
       </div>
       <div className="navbar-end">
